@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class transactionCard extends StatelessWidget {
+import 'package:intl/intl.dart';
+
+class TransactionCard extends StatelessWidget {
   final String id;
   final String title;
   final double amount;
   final DateTime date;
 
-  transactionCard(@required this.id, @required this.title,
+  TransactionCard(@required this.id, @required this.title,
       @required this.amount, @required this.date);
 
   @override
@@ -44,9 +46,10 @@ class transactionCard extends StatelessWidget {
                       ) ,),
                   ),
                   Container(
-                    child: Text(date.toString(),
+                    child: Text(
+                      DateFormat.yMMMd().add_E().add_jm().format(date),
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: 12.0,
                       color: Colors.grey
                     ),
                     ),

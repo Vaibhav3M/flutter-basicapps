@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:monthly_planner/Widgets/AddTransaction.dart';
 
-import 'package:monthly_planner/model/transaction.dart';
-import 'package:monthly_planner/Widgets/transaction_widget.dart';
+
+import './Widgets/TransactionList.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -12,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
 
-  final List<transaction> transactions = transaction.getTransactions();
+   Function abc;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +40,7 @@ class MyHomePage extends StatelessWidget {
               child: Text("CHART !!!!"),
             ),
           ),
-          Column(
-            children: transactions.map((tx) {
-              return transactionCard(tx.id, tx.title, tx.amount, tx.date);
-            }).toList(),
-          ),
+          AddTransaction(),
         ],
       ),
     );
