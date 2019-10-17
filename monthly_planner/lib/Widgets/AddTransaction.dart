@@ -10,16 +10,20 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
+
+  //Controllers for textfiled
   final titleFieldController = TextEditingController();
 
   final amountFiledController = TextEditingController();
 
+  //Method to add transaction and Update state
   _addNewTransaction(String title, double amount) {
     final newTrans =
         transaction(DateTime.now().toString(), title, amount, DateTime.now());
 
     transaction.addTransaction(newTrans);
 
+    //updating the state
     setState(() {
       transaction.getTransactions();
     });
@@ -53,6 +57,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     onPressed: () {
                       _addNewTransaction(titleFieldController.text,
                           double.parse(amountFiledController.text));
+                      titleFieldController.clear();
+                      amountFiledController.clear();
                     },
                   ),
                 ],

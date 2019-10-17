@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:monthly_planner/model/transaction.dart';
 
 class TransactionCard extends StatelessWidget {
-  final String id;
-  final String title;
-  final double amount;
-  final DateTime date;
 
-  TransactionCard(@required this.id, @required this.title,
-      @required this.amount, @required this.date);
+  transaction trans;
+
+  TransactionCard(
+      @ required this.trans);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class TransactionCard extends StatelessWidget {
                   width: 2.0)
               ),
               child: Text(
-                  '\$ $amount',
+                  '\$ ${trans.amount}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,
@@ -39,7 +38,7 @@ class TransactionCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    child: Text(title,
+                    child: Text(trans.title,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0
@@ -47,7 +46,7 @@ class TransactionCard extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      DateFormat.yMMMd().add_E().add_jm().format(date),
+                      DateFormat.yMMMd().add_E().add_jm().format(trans.date),
                     style: TextStyle(
                       fontSize: 12.0,
                       color: Colors.grey

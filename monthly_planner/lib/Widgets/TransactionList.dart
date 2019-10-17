@@ -9,13 +9,16 @@ class TransactionList extends StatelessWidget {
 
   final List<transaction> transactions = transaction.getTransactions();
 
-
+  // Using @TransactionCard widget to creat a list using ListView Builder
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((tx) {
-        return TransactionCard(tx.id, tx.title, tx.amount, tx.date);
-      }).toList(),
+    return Container(
+      height: 400,
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (context,index) {
+        return TransactionCard(transactions[index]);
+      },)
     );
   }
 }
