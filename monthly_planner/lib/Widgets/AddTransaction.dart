@@ -1,52 +1,32 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:monthly_planner/model/transaction.dart';
-import './TransactionList.dart';
-
 class AddTransaction extends StatefulWidget {
+
+  final Function _addNewTransaction;
+
+  AddTransaction(this._addNewTransaction);
+
   @override
   _AddTransactionState createState() => _AddTransactionState();
 }
 
 class _AddTransactionState extends State<AddTransaction> {
 
-  //Controllers for textfiled
   final titleFieldController = TextEditingController();
 
   final amountFiledController = TextEditingController();
 
-  //Method to add transaction and Update state
-  _addNewTransaction(String title, double amount) {
-
-    //Rounding to 2 decimal places
-    String tempAmount = amount.toStringAsFixed(2);
-    amount = double.parse(tempAmount);
-
-    final newTrans =
-        transaction(DateTime.now().toString(), title, amount, DateTime.now());
-
-    transaction.addTransaction(newTrans);
-
-    //updating the state
-    setState(() {
-      transaction.getTransactions();
-    });
-
-  }
-
-  //method to on click of add transaction or done button
-  void submitButtonAction(){
+  void _submitButtonAction(){
 
     if(titleFieldController.text.isEmpty || double.parse(amountFiledController.text) <=0){
       return;
     }
 
-    _addNewTransaction(titleFieldController.text,
+    widget._addNewTransaction(titleFieldController.text,
         double.parse(amountFiledController.text));
-    titleFieldController.clear();
-    amountFiledController.clear();
 
+    Navigator.of(context).pop();
   }
 
   @override
@@ -63,29 +43,26 @@ class _AddTransactionState extends State<AddTransaction> {
                   TextField(
                     decoration: InputDecoration(labelText: "Title"),
                     controller: titleFieldController,
-                    onSubmitted: (_) => submitButtonAction(),
+                    onSubmitted: (_) => _submitButtonAction(),
                   ),
                   TextField(
                     decoration: InputDecoration(labelText: "Amount"),
                     controller: amountFiledController,
                     keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
-                    onSubmitted: (_) => submitButtonAction(),
+                    onSubmitted: (_) => _submitButtonAction(),
                   ),
                   FlatButton(
                     child: Text(
                       "Add Transaction",
                       style: TextStyle(color: Colors.purple),
                     ),
-                    onPressed: submitButtonAction,
+                    onPressed: _submitButtonAction,
                   ),
                 ],
               ),
             ),
           ),
         ),
-        Container(
-          child: TransactionList(),
-        )
       ],
     );
   }
