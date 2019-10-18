@@ -18,6 +18,11 @@ class _AddTransactionState extends State<AddTransaction> {
 
   //Method to add transaction and Update state
   _addNewTransaction(String title, double amount) {
+
+    //Rounding to 2 decimal places
+    String tempAmount = amount.toStringAsFixed(2);
+    amount = double.parse(tempAmount);
+
     final newTrans =
         transaction(DateTime.now().toString(), title, amount, DateTime.now());
 
@@ -27,6 +32,20 @@ class _AddTransactionState extends State<AddTransaction> {
     setState(() {
       transaction.getTransactions();
     });
+
+  }
+
+  //method to on click of add transaction or done button
+  void submitButtonAction(){
+
+    if(titleFieldController.text.isEmpty || double.parse(amountFiledController.text) <=0){
+      return;
+    }
+
+    _addNewTransaction(titleFieldController.text,
+        double.parse(amountFiledController.text));
+    titleFieldController.clear();
+    amountFiledController.clear();
 
   }
 
@@ -44,22 +63,20 @@ class _AddTransactionState extends State<AddTransaction> {
                   TextField(
                     decoration: InputDecoration(labelText: "Title"),
                     controller: titleFieldController,
+                    onSubmitted: (_) => submitButtonAction(),
                   ),
                   TextField(
                     decoration: InputDecoration(labelText: "Amount"),
                     controller: amountFiledController,
+                    keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
+                    onSubmitted: (_) => submitButtonAction(),
                   ),
                   FlatButton(
                     child: Text(
                       "Add Transaction",
                       style: TextStyle(color: Colors.purple),
                     ),
-                    onPressed: () {
-                      _addNewTransaction(titleFieldController.text,
-                          double.parse(amountFiledController.text));
-                      titleFieldController.clear();
-                      amountFiledController.clear();
-                    },
+                    onPressed: submitButtonAction,
                   ),
                 ],
               ),
