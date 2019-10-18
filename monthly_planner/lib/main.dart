@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 import 'package:monthly_planner/Widgets/AddTransaction.dart';
+import 'package:monthly_planner/Widgets/Chart.dart';
 import 'package:monthly_planner/Widgets/TransactionList.dart';
 import './model/transaction.dart';
 
@@ -31,6 +32,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  //get current weeks transaction for chart
+  List<transaction> get _weeksTransaction{
+
+    return transaction.getTransactions().where((tx){
+
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
+
 
   // showing popup for add transaction
   void _startAddTransaction(BuildContext ctx){
@@ -81,10 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text("CHART !!!!"),
-              ),
+              child: Chart(_weeksTransaction)
             ),
             TransactionList(),
           ],
