@@ -6,11 +6,13 @@ class transaction {
   final double amount;
   final DateTime date;
 
-  static List<transaction> transactions = [
-    transaction("1", "Grocery", 34.0, DateTime.now()),
-    transaction("2", "Mobile bill", 50.0, DateTime.now())
+  static List<transaction> transactions = [];
 
-  ];
+//  [
+//    transaction("1", "Grocery", 34.0, DateTime.now()),
+//    transaction("2", "Mobile bill", 50.0, DateTime.now())
+//
+//  ];
 
 
   transaction(@required this.id, @required this.title, @required this.amount,
