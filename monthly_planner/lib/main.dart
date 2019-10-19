@@ -94,14 +94,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    //media query object
+    final mediaQuery = MediaQuery.of(context);
+
     //available height for the app
-    double availableHeight = MediaQuery.of(context).size.height -
+    double availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
 
     //orientation
     bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+        mediaQuery.orientation == Orientation.landscape;
 
     //the TransactionList widget
     final Widget transList = Container(
