@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:monthly_planner/Widgets/AddTransaction.dart';
 import 'package:monthly_planner/Widgets/Chart.dart';
 import 'package:monthly_planner/Widgets/TransactionList.dart';
 import './model/transaction.dart';
 
-void main() => runApp(MyApp());
+void main(){
+
+  //Setting orientation device wide
+      SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown]);
+
+      runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
