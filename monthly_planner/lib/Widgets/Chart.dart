@@ -50,7 +50,8 @@ class Chart extends StatelessWidget {
             return Flexible(
               fit: FlexFit.tight,
               child: weekTotal == 0
-                  ? Text("")
+                  ? ChartBar(data['day'], data['amount'],
+                  (data['amount'] as double))
                   : ChartBar(data['day'], data['amount'],
                       (data['amount'] as double) / weekTotal),
             );

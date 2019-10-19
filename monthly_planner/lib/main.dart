@@ -100,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
         MediaQuery.of(context).padding.top;
 
     //orientation
-    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     //the TransactionList widget
     final Widget transList = Container(
@@ -112,40 +113,37 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-
             //for portrait mode
-           if(!isLandscape) Container(
-                 height: availableHeight * 0.3,
-                 width: double.infinity,
-                 child: Chart(_weeksTransaction)),
+            if (!isLandscape)
+              Container(
+                  height: availableHeight * 0.3,
+                  width: double.infinity,
+                  child: Chart(_weeksTransaction)),
 
-            if(!isLandscape)transList,
+             if(!isLandscape)transList,
 
-         // for landscape mode
-            if(isLandscape)
-              Row(mainAxisAlignment: MainAxisAlignment.center,
-
-                children: <Widget>[
-
-                  Text("Show chart"),
-                  Switch(
-                    value: _switchChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _switchChart = val;
-                      });
-                    },
-                  ),
-                ]),
-              _switchChart ? Container(
-                height: availableHeight * 0.7,
-                width: double.infinity,
-                child: Chart(_weeksTransaction))
-            : transList
+            // for landscape mode
+            if (isLandscape) Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Show chart"),
+                    Switch( value: _switchChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _switchChart = val;
+                        });
+                      },
+                    ),
+                  ]),
+            if (isLandscape )_switchChart
+                ? Container(
+                    height: availableHeight * 0.7,
+                    width: double.infinity,
+                    child: Chart(_weeksTransaction))
+                : transList
           ],
         ),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
