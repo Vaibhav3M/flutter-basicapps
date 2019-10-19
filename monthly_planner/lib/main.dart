@@ -125,7 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     //application body
-    final appBody = SingleChildScrollView(
+    final appBody = SafeArea(
+     child: SingleChildScrollView(
       child: Column(
         children: <Widget>[
           //for portrait mode
@@ -141,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
           if (isLandscape) Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Show chart"),
+                Text("Show chart",
+                  style: Theme.of(context).textTheme.title),
                 Switch.adaptive( value: _switchChart,
                   onChanged: (val) {
                     setState(() {
@@ -158,6 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               : transList
         ],
       ),
+     ),
     );
 
 
