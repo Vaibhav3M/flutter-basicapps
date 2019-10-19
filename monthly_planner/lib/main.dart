@@ -73,23 +73,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppBar appBar = AppBar(
+      title: Text("Planner"),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddTransaction(context),
+        ),
+      ],
+    );
+
+
+    //available height for the app
+    double availableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Planner"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddTransaction(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(width: double.infinity,
+            Container(
+              height: availableHeight * 0.3,
+                width: double.infinity,
                 child: Chart(_weeksTransaction)
             ),
-            TransactionList(_deleteTransaction),
+            Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_deleteTransaction)),
           ],
         ),
       ),
