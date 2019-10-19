@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.red,
+        buttonColor: Colors.white,
       ),
       home: MyHomePage(),
     );
@@ -55,14 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   //Method to add transaction and Update state
-  _addNewTransaction(String title, double amount) {
+  _addNewTransaction(String title, double amount, DateTime date) {
 
     //Rounding to 2 decimal places
     String tempAmount = amount.toStringAsFixed(2);
     amount = double.parse(tempAmount);
 
     final newTrans =
-    transaction(DateTime.now().toString(), title, amount, DateTime.now());
+    transaction(DateTime.now().toString(), title, amount, date);
 
     transaction.addTransaction(newTrans);
 
