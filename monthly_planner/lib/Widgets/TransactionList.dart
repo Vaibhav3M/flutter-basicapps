@@ -5,6 +5,11 @@ import '../model/transaction.dart';
 import './TransactionCard.dart';
 
 class TransactionList extends StatelessWidget {
+
+  final Function _deleteTransaction;
+
+  TransactionList(this._deleteTransaction);
+
   final List<transaction> transactions = transaction.getTransactions();
 
   // Using @TransactionCard widget to creat a list using ListView Builder
@@ -53,7 +58,13 @@ class TransactionList extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                      subtitle: Text(DateFormat.yMMMd().format(transactions[index].date)),
+                      subtitle: Text(
+                          DateFormat.yMMMd().format(transactions[index].date)),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete_outline,
+                        color: Theme.of(context).errorColor),
+                        onPressed: () => _deleteTransaction(transactions[index]),
+                      ),
                     ),
                   );
 

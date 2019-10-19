@@ -28,4 +28,11 @@ class transaction {
 
     return transactions;
   }
+
+  static List<transaction> deleteTransaction(transaction tx){
+
+    transactions.remove(tx);
+
+    return transactions;
+  }
 }
