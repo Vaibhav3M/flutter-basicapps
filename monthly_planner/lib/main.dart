@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:monthly_planner/Widgets/AddTransaction.dart';
 import 'package:monthly_planner/Widgets/Chart.dart';
@@ -84,7 +87,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(
+
+    //media query object
+    final mediaQuery = MediaQuery.of(context);
+
+    //orientation
+    bool isLandscape =
+        mediaQuery.orientation == Orientation.landscape;
+
+
+
+    final PreferredSizeWidget appBar = Platform.isIOS ? CupertinoNavigationBar(
+      middle: Text('hello'),
+      trailing: GestureDetector(
+        child: Icon(CupertinoIcons.add),
+        onTap: () => _startAddTransaction(context),
+      ),
+    ):AppBar(
       title: Text("Planner"),
       actions: <Widget>[
         IconButton(
@@ -94,60 +113,66 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    //media query object
-    final mediaQuery = MediaQuery.of(context);
-
     //available height for the app
     double availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top;
-
-    //orientation
-    bool isLandscape =
-        mediaQuery.orientation == Orientation.landscape;
 
     //the TransactionList widget
     final Widget transList = Container(
         height: availableHeight * 0.7,
         child: TransactionList(_deleteTransaction));
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            //for portrait mode
-            if (!isLandscape)
-              Container(
-                  height: availableHeight * 0.3,
-                  width: double.infinity,
-                  child: Chart(_weeksTransaction)),
 
-             if(!isLandscape)transList,
+    //application body
+    final appBody = SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          //for portrait mode
+          if (!isLandscape)
+            Container(
+                height: availableHeight * 0.3,
+                width: double.infinity,
+                child: Chart(_weeksTransaction)),
 
-            // for landscape mode
-            if (isLandscape) Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Show chart"),
-                    Switch( value: _switchChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _switchChart = val;
-                        });
-                      },
-                    ),
-                  ]),
-            if (isLandscape )_switchChart
-                ? Container(
-                    height: availableHeight * 0.7,
-                    width: double.infinity,
-                    child: Chart(_weeksTransaction))
-                : transList
-          ],
-        ),
+          if(!isLandscape)transList,
+
+          // for landscape mode
+          if (isLandscape) Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Show chart"),
+                Switch.adaptive( value: _switchChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _switchChart = val;
+                    });
+                  },
+                ),
+              ]),
+          if (isLandscape )_switchChart
+              ? Container(
+              height: availableHeight * 0.7,
+              width: double.infinity,
+              child: Chart(_weeksTransaction))
+              : transList
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+
+
+
+    return Platform.isIOS ? CupertinoPageScaffold(
+      navigationBar: appBar,
+      child: appBody,
+
+    ): Scaffold(
+      appBar: appBar,
+      body: appBody,
+
+      floatingActionButtonLocation: Platform.isIOS ?
+      Container() :
+      FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddTransaction(context),
