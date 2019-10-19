@@ -6,14 +6,14 @@ import 'package:monthly_planner/Widgets/Chart.dart';
 import 'package:monthly_planner/Widgets/TransactionList.dart';
 import './model/transaction.dart';
 
-void main(){
-
+void main() {
   //Setting orientation device wide
-      SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown]);
 
-      runApp(MyApp());
+//      SystemChrome.setPreferredOrientations(
+//          [DeviceOrientation.portraitUp,
+//            DeviceOrientation.portraitDown]);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -39,6 +39,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //bool value for switch
+  bool _switchChart = true;
+
   //get current weeks transaction for chart
   List<transaction> get _weeksTransaction {
     return transaction.getTransactions().where((tx) {
@@ -74,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //method to delete transaction
   _deleteTransaction(transaction tx) {
-
     setState(() {
       transaction.deleteTransaction(tx);
     });
@@ -82,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     AppBar appBar = AppBar(
       title: Text("Planner"),
       actions: <Widget>[
@@ -93,26 +94,58 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-
     //available height for the app
-    double availableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+    double availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    //orientation
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
+    //the TransactionList widget
+    final Widget transList = Container(
+        height: availableHeight * 0.7,
+        child: TransactionList(_deleteTransaction));
 
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              height: availableHeight * 0.3,
-                width: double.infinity,
-                child: Chart(_weeksTransaction)
-            ),
-            Container(
+
+            //for portrait mode
+           if(!isLandscape) Container(
+                 height: availableHeight * 0.3,
+                 width: double.infinity,
+                 child: Chart(_weeksTransaction)),
+
+            if(!isLandscape)transList,
+
+         // for landscape mode
+            if(isLandscape)
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+
+                children: <Widget>[
+
+                  Text("Show chart"),
+                  Switch(
+                    value: _switchChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _switchChart = val;
+                      });
+                    },
+                  ),
+                ]),
+              _switchChart ? Container(
                 height: availableHeight * 0.7,
-                child: TransactionList(_deleteTransaction)),
+                width: double.infinity,
+                child: Chart(_weeksTransaction))
+            : transList
           ],
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
