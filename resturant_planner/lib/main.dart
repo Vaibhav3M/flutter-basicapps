@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resturant_planner/Views/category_details_screen.dart';
 
 
 import 'package:resturant_planner/Views/category_screen.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
             )),
       ),
       home: CategoryScreen(),
+      routes: {
+        CategoryDetailsScreen.route : (ctx) => CategoryDetailsScreen(),
+      },
     );
   }
 }

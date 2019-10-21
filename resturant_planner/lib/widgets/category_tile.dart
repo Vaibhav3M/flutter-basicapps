@@ -8,11 +8,17 @@ class CategoryTile extends StatelessWidget {
 
   CategoryTile(this.id, this.title, this.color);
 
-  void _onTileTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return MealsScreen(this.id, this.title);
-    }));
+//  void _onTileTap(BuildContext context) {
+//    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+//      return MealsScreen(this.id, this.title);
+//    }));
+//  }
+
+  //using named routes
+    void _onTileTap(BuildContext context) {
+    Navigator.of(context).pushNamed('/catalogDetails',arguments: {'id':id, 'title': title});
   }
+
 
   @override
   Widget build(BuildContext context) {

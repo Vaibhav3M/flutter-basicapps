@@ -4,6 +4,8 @@ import 'package:resturant_planner/model/Category.dart';
 import 'package:resturant_planner/widgets/category_tile.dart';
 
 class CategoryScreen extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
