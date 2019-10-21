@@ -6,13 +6,11 @@ class transaction {
   final double amount;
   final DateTime date;
 
-  static List<transaction> transactions = [];
+  static List<transaction> transactions = [
+    transaction("1", "Grocery", 34.0, DateTime.now().subtract(Duration(days: 1))),
+    transaction("2", "Mobile bill", 50.0, DateTime.now().subtract(Duration(days: 2)))
 
-//  [
-//    transaction("1", "Grocery", 34.0, DateTime.now()),
-//    transaction("2", "Mobile bill", 50.0, DateTime.now())
-//
-//  ];
+  ];
 
 
   transaction(@required this.id, @required this.title, @required this.amount,
@@ -27,6 +25,13 @@ class transaction {
   static List<transaction> addTransaction(transaction tx){
 
     transactions.add(tx);
+
+    return transactions;
+  }
+
+  static List<transaction> deleteTransaction(transaction tx){
+
+    transactions.remove(tx);
 
     return transactions;
   }
