@@ -21,6 +21,7 @@ class CategoryScreen extends StatelessWidget {
           ),
           children: Category.DUMMY_CATEGORIES
               .map((catdata) => CategoryTile(
+                    catdata.id,
                     catdata.title,
                     catdata.color,
                   ))
