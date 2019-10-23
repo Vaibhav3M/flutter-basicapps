@@ -10,7 +10,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Resturant "),
+        title: Text("Resturant Items"),
       ),
       body: Container(
         padding: EdgeInsets.all(10),
@@ -26,6 +26,7 @@ class CategoryScreen extends StatelessWidget {
                     catdata.id,
                     catdata.title,
                     catdata.color,
+
                   ))
               .toList(),
         ),
