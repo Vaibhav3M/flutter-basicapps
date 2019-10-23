@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:resturant_planner/Views/category_fulldetail_screen.dart';
 
 import 'package:resturant_planner/model/Meal.dart';
 
 class DetailTile extends StatelessWidget {
+
+  final String id;
   final String title;
   final String imageUrl;
   final Affordability affordability;
   final Complexity complexity;
   final int duration;
 
-  DetailTile(
-      {@required this.title,
-      @required this.imageUrl,
-      @required this.affordability,
-      @required this.complexity,
-      @required this.duration});
+  DetailTile({
+    @required this.id,
+    @required this.title,
+    @required this.imageUrl,
+    @required this.affordability,
+    @required this.complexity,
+    @required this.duration});
 
-  String get complexityText{
-    switch (complexity){
-
+  String get complexityText {
+    switch (complexity) {
       case Complexity.Challenging:
         return 'Challenging';
         break;
@@ -34,12 +37,10 @@ class DetailTile extends StatelessWidget {
       default:
         return 'Unknown';
     }
-
   }
 
-  String get affordabilityText{
-    switch (affordability){
-
+  String get affordabilityText {
+    switch (affordability) {
       case Affordability.Affordable:
         return 'Affordable';
         break;
@@ -55,13 +56,18 @@ class DetailTile extends StatelessWidget {
       default:
         return 'Unknown';
     }
+  }
 
+
+  void _onItemTap(BuildContext context) {
+    Navigator.of(context).pushNamed(
+        CategoryFullDetailScreen.route, arguments: {'id':id});
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => _onItemTap(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
@@ -105,7 +111,7 @@ class DetailTile extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text('$duration mins' ),
+                      Text('$duration mins'),
                     ],
                   ),
                   Row(

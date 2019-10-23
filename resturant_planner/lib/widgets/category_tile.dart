@@ -16,7 +16,7 @@ class CategoryTile extends StatelessWidget {
 
   //using named routes
     void _onTileTap(BuildContext context) {
-    Navigator.of(context).pushNamed('/catalogDetails',arguments: {'id':id, 'title': title});
+    Navigator.of(context).pushNamed(CategoryDetailsScreen.route,arguments: {'id':id, 'title': title});
   }
 
 

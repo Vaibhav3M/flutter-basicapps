@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:resturant_planner/Views/category_details_screen.dart';
 
 
 import 'package:resturant_planner/Views/category_screen.dart';
+import 'package:resturant_planner/Views/category_details_screen.dart';
+import 'package:resturant_planner/Views/category_fulldetail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +34,22 @@ class MyApp extends StatelessWidget {
       home: CategoryScreen(),
       routes: {
         CategoryDetailsScreen.route : (ctx) => CategoryDetailsScreen(),
+        CategoryFullDetailScreen.route : (ctx) => CategoryFullDetailScreen(),
       },
+//      onGenerateRoute: (settings){
+//        //this method is called if no named route is found
+//        // we get a parameter for which has all the info
+//        // it must return route to a defined screen
+//
+////        print(settings);
+////       return MaterialPageRoute(builder: (ctx) => CategoryScreen());
+//
+//      },
+//      onUnknownRoute: (settings){
+//        // reached when all other route build measures fail
+//
+//       // return MaterialPageRoute(builder: (ctx) => CategoryScreen());
+//      },
     );
   }
 }

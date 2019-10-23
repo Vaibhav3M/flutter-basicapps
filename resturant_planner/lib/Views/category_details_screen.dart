@@ -4,7 +4,7 @@ import 'package:resturant_planner/model/Meal.dart';
 import 'package:resturant_planner/widgets/category_detail_tile.dart';
 
 class CategoryDetailsScreen extends StatelessWidget {
-  static String route = '/catalogDetails';
+  static String route = '/categoryDetails';
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class CategoryDetailsScreen extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return DetailTile(
+              id:categoryMeals[index].id,
               title: categoryMeals[index].title,
               imageUrl: categoryMeals[index].imageURL,
               affordability: categoryMeals[index].affordability,
